@@ -84,8 +84,8 @@ class ParallelPing(object):
 def cmd(target, timeout, count):
     pping = ParallelPing(targets=list(target), timeout=timeout, count=count)
     pping.run()
-    print(pping.get_active_target_count())
-    pping.print_stdout()
+    # print(pping.get_active_target_count())
+    # pping.print_stdout()
 
 
 def main():
