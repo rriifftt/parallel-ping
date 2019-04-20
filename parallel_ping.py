@@ -64,7 +64,8 @@ class ParallelPing(object):
         """
         self.results = []
         with ThreadPoolExecutor(max_workers=self.max_workers) as e:
-            res = {e.submit(self.get_ping_result, target): target for target in self.targets}
+            res = [e.submit(self.get_ping_result, target)
+                for target in self.targets]
             for future in as_completed(res):
                 self.results.append(future.result())
 
