@@ -1,5 +1,10 @@
+#!/bin/sh
+
+# this is a sample script that suppose to using pacemaker
+# https://github.com/ClusterLabs/pacemaker/blob/master/extra/resources/ping
+
 ping_check() {
-    pping="python /Users/rriifftt/src/parallel-ping/parallel_ping.py"
+    pping="python ./parallel_ping.py"
     targets=$(echo " $OCF_RESKEY_host_list" | sed "s/ / --target /g")
 
     active=$($pping $targets \
