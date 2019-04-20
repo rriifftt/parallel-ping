@@ -4,7 +4,7 @@
 import click
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
-from subprocess import run
+import subprocess
 
 
 class ParallelPing(object):
@@ -51,7 +51,7 @@ class ParallelPing(object):
 
         count = 0
         while count < self.retry_count:
-            res = run(command, capture_output=True)
+            res = subprocess.run(command, capture_output=True)
             if res.returncode == 0:
                 return res
             else:
