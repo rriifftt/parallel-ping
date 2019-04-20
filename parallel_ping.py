@@ -55,6 +55,7 @@ class ParallelPing(object):
             if res.returncode == 0:
                 return res
             else:
+                # TODO: logging here
                 count += 1
         return res
 
@@ -62,12 +63,11 @@ class ParallelPing(object):
         """
         parallel ping using concurrent.futures.TheadPoolExecutor
         """
-        self.results = []
         with ThreadPoolExecutor(max_workers=self.max_workers) as e:
             res = [e.submit(self.get_ping_result, target)
                 for target in self.targets]
-            for future in as_completed(res):
-                self.results.append(future.result())
+            
+            self.results = [future.result() for future in as_completed(res)]
 
     def get_active_target_count(self):
         return len([ r for r in self.results if r.returncode == 0 ])
