@@ -12,5 +12,6 @@ Options:
   -T, --timeout INTEGER
   -c, --count INTEGER
   --max-workers INTEGER
-  --help                 Show this message and exit.
+  --output [active-count|stdout]
+  --help                          Show this message and exit.
 ```
