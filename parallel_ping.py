@@ -38,9 +38,9 @@ class ParallelPing(object):
             raise
 
         if self.sysname == 'Darwin':
-            return ['-t', timeout]
+            return ['-n', '-q', '-t', timeout, '-c', '1']
         elif self.sysname == 'Linux':
-            return ['-W', timeout]
+            return ['-n', '-q', '-W', timeout, '-c', '1']
 
     def get_ping_result(self, target):
         """
@@ -81,12 +81,19 @@ class ParallelPing(object):
 @click.option('--timeout', '-T', default=1)
 @click.option('--count', '-c', default=3)
 @click.option('--max-workers', default=10)
-def cmd(target, timeout, count):
-    pping = ParallelPing(targets=list(target), timeout=timeout, count=count)
+@click.option('--output', type=click.Choice(['active-count', 'stdout']))
+def cmd(target, timeout, count, max_workers, output):
+    pping = ParallelPing(
+        targets=list(target), timeout=timeout,
+        count=count, max_workers=max_workers)
     pping.run()
-    # print(pping.get_active_target_count())
-    # pping.print_stdout()
 
+    if output == 'active-count':
+        print(pping.get_active_target_count())
+    elif output == 'stdout':
+        pping.print_stdout()
+    else:
+        pass
 
 def main():
     cmd()
