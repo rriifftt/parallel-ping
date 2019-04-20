@@ -96,9 +96,6 @@ def cmd(target, timeout, count, max_workers, output):
     else:
         pass
 
-def main():
-    cmd()
-
 
 if __name__ == '__main__':
-    main()
+    cmd()
